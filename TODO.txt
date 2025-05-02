@@ -1,0 +1,40 @@
+TODO - Maps API - something open source and free for starters
+TODO - Set up a proper DB
+TODO - Make the design - will need a side menu
+TODO - Add/Remove/Edit points:
+       - Have to be confirmed
+       - Adding triggered by tapping on the map / on a point
+       - Name, description
+       - [optional] Photos
+TODO - Location privilege request
+TODO - Auth + Profile customization
+TODO - 3 access levels - Admin > Mod > User
+TODO - Comments on points
+TODO - Confirmed/Non-confirmed filter
+TODO - Red - no outlet, Green - outlet ; Dotted line - not confirmed, solid line - confirmed
+TODO - Prospective optimization - group points when zoomed too far away
+
+DB structure:
+    Table 1:
+        - point id                [id]
+        - name                    [from user]
+        - coordinates             [from user]
+        - description & notes     [from user]
+        - is confirmed            [after moderation]
+        - addition date           [metadata]
+        - last edited date        [metadata]
+
+    Table 2:
+        - point id                [id]
+        - internet provider       [from user]
+        - avg speed               [calculated from table 3]
+        - last measured           [from table 3]
+
+    Table 3:
+        - measurement id          [id]
+        - point id                [id]
+        - internet provider       [from user]
+        - speed                   [from user]
+        - measurement time        [from user]
+
+TODO - Monetization somehow ?? (Maybe ads? and only if it actually takes off)
