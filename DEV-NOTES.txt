@@ -1,4 +1,5 @@
-TODO - Maps API - something open source and free for starters
+DONE - Maps API - something open source and free for starters - Leaflet
+DONE - Red - no outlet, Green - outlet ; Dotted line - not confirmed, solid line - confirmed
 TODO - Set up a proper DB
 TODO - Make the design - will need a side menu
 TODO - Add/Remove/Edit points:
@@ -11,7 +12,6 @@ TODO - Auth + Profile customization
 TODO - 3 access levels - Admin > Mod > User
 TODO - Comments on points
 TODO - Confirmed/Non-confirmed filter
-TODO - Red - no outlet, Green - outlet ; Dotted line - not confirmed, solid line - confirmed
 TODO - Prospective optimization - group points when zoomed too far away
 
 DB structure:
@@ -37,4 +37,6 @@ DB structure:
         - speed                   [from user]
         - measurement time        [from user]
 
-TODO - Monetization somehow ?? (Maybe ads? and only if it actually takes off)
+* Icon default color - e3e3e3
+* "Has outlets" green - #0bda51
+* "No luck" red - #ff4b33

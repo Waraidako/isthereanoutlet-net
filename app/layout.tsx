@@ -12,11 +12,6 @@ const robotoMono = Roboto_Mono({
   subsets: ["latin", "cyrillic"],
 });
 
-const sourceCodePro = Source_Code_Pro({
-  variable: "--font-source-code-pro",
-  subsets: ["latin", "cyrillic"],
-});
-
 export const metadata: Metadata = {
   title: "Is there an outlet?",
   description: "Check public outlets nearby",
@@ -35,13 +30,14 @@ export default function RootLayout({
             crossOrigin=""/>
 
     </head>
-    <body
-        className={`${montserrat.variable} ${robotoMono.variable} antialiased`}
-    >
+    <body className={`${robotoMono.variable} ${montserrat.variable} antialiased`}>
     {/* eslint-disable-next-line @next/next/no-sync-scripts */}
       <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossOrigin=""></script>
+      <script src="https://unpkg.com/leaflet"></script>
+      <script src="https://unpkg.com/leaflet-doubletapdrag"></script>
+      <script src="https://unpkg.com/leaflet-doubletapdragzoom"></script>
     {children}
     </body>
     </html>
