@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 import L, {Map, PointExpression} from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "../../public/images/icons/no-outlets-confirmed.png";
-import 'leaflet-doubletapdrag';
-import 'leaflet-doubletapdragzoom';
+import '../utils/Leaflet.DoubleTapDrag';
+import '../utils/Leaflet.DoubleTapDragZoom';
 import { placeMarker } from "@/app/utils/mapHandler";
 
 const iconSize: PointExpression = [48, 48];
