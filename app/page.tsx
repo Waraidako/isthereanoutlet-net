@@ -9,10 +9,11 @@ const MapDisplay = dynamic(() => import("./components/Map"), { ssr: false });
 const styles = {
     bmBurgerButton: {
         position: 'fixed',
+        scale: '90%',
         width: '36px',
         height: '30px',
-        left: '36px',
-        top: '36px'
+        left: '17px',
+        top: '17px'
     },
     bmBurgerBars: {
         background: '#373a47'
@@ -32,7 +33,7 @@ const styles = {
         height: '100%'
     },
     bmMenu: {
-        background: '#373a47',
+        background: '#ededed',
         padding: '2.5em 1.5em 0',
         fontSize: '1.15em'
     },
@@ -40,7 +41,7 @@ const styles = {
         fill: '#373a47'
     },
     bmItemList: {
-        color: '#b8b7ad',
+        color: '#1c1c1c',
         padding: '0.8em'
     },
     bmItem: {
@@ -54,11 +55,11 @@ const styles = {
 export default function Home() {
     return (
         <div className="font-montserrat">
-            <Menu styles = { styles }>
-                <a href="/piss">Piss button 1</a>
-                <a href="/piss">Piss button 2</a>
-                <a href="/piss">Piss button 3</a>
-                <a href="/piss">Piss button 4</a>
+            <Menu styles = { styles } className="flex-col h-full">
+                <a href="/piss" className="mb-4 w-full">PISS BUTTON</a>
+                <a href="/piss" className="mb-4 w-full">PISS BUTTON</a>
+                <a href="/piss" className="mb-4 w-full">PISS BUTTON</a>
+                <a href="/piss" className="mb-4 w-full">PISS BUTTON</a>
             </Menu>
             <MapDisplay />
         </div>

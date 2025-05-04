@@ -63,13 +63,14 @@ export default function MapDisplay() {
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; OpenStreetMap contributors',
             }).addTo(map.current);
-            const info1 = { name: "Burger king" }
-            placeMarker(map.current, [55.751934, 37.618346], hasOutletsNotConfirmedIcon,
-                JSON.stringify(info1));
-            //placeMarker(map.current, [55.752934, 37.619346], hasOutletsConfirmedIcon, 'Rejoice for there are outlets');
-            //placeMarker(map.current, [55.752834, 37.618446], noOutletsConfirmedIcon, 'No outlets :(');
-            //placeMarker(map.current, [55.753934, 37.618556], noOutletsNotConfirmedIcon,
-            //    "No outlets :( <br> Non-confirmed though so don't be too discouraged");
+            const info1 = JSON.stringify({ name: "Place #1" });
+            const info2 = JSON.stringify({ name: "Place #2" });
+            const info3 = JSON.stringify({ name: "Place #3" });
+            const info4 = JSON.stringify({ name: "Place #4" });
+            placeMarker(map.current, [55.751934, 37.618346], hasOutletsNotConfirmedIcon, info1);
+            placeMarker(map.current, [55.752934, 37.619346], hasOutletsConfirmedIcon, info2);
+            placeMarker(map.current, [55.752834, 37.618446], noOutletsConfirmedIcon, info3);
+            placeMarker(map.current, [55.753934, 37.618556], noOutletsNotConfirmedIcon, info4);
         }
         return () => {
             if (map.current) {
