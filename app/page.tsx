@@ -9,11 +9,11 @@ const MapDisplay = dynamic(() => import("./components/Map"), { ssr: false });
 const styles = {
     bmBurgerButton: {
         position: 'fixed',
-        scale: '90%',
-        width: '36px',
-        height: '30px',
-        left: '17px',
-        top: '17px'
+        scale: '100%',
+        width: '64px',
+        height: '64px',
+        left: '10px',
+        top: '10px'
     },
     bmBurgerBars: {
         background: '#373a47'
@@ -55,7 +55,7 @@ const styles = {
 export default function Home() {
     return (
         <div className="font-montserrat">
-            <Menu styles = { styles } className="flex-col h-full">
+            <Menu styles = { styles } className="flex-col h-full" customBurgerIcon={ <img src="/images/icons/hamburger-menu.png" alt="🍔"/> }>
                 <a href="/piss" className="mb-4 w-full">PISS BUTTON</a>
                 <a href="/piss" className="mb-4 w-full">PISS BUTTON</a>
                 <a href="/piss" className="mb-4 w-full">PISS BUTTON</a>
