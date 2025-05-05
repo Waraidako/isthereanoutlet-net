@@ -1,9 +1,11 @@
+import L from "leaflet";
+
 function DoubleTapDragInitHook() {
-  var timer = null;
-  var fired = false;
-  var lastTimestamp = null;
-  var DOUBLE_CLICK_TIMEOUT = 300;
-  var WAIT_FOR_DRAG_END_TIMEOUT = 0;
+  let timer = null;
+  let fired = false;
+  let lastTimestamp = null;
+  let DOUBLE_CLICK_TIMEOUT = 150;
+  let WAIT_FOR_DRAG_END_TIMEOUT = 0;
 
   this._container.addEventListener('click', L.Util.bind(function (e) {
     lastTimestamp = Date.now();
@@ -16,7 +18,7 @@ function DoubleTapDragInitHook() {
     if (e.touches.length !== 1) {
       return;
     }
-    var now = Date.now();
+    let now = Date.now();
     if (lastTimestamp) {
       if (now - lastTimestamp < DOUBLE_CLICK_TIMEOUT) {
         timer = setTimeout(L.Util.bind(function () {

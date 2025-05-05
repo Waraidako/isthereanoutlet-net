@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat, Roboto_Mono, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
+import Menu from "./components/Menu";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -22,6 +23,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
     <head>
@@ -38,6 +40,7 @@ export default function RootLayout({
       <script src="https://unpkg.com/leaflet"></script>
       <script src="https://unpkg.com/leaflet-doubletapdrag"></script>
       <script src="https://unpkg.com/leaflet-doubletapdragzoom"></script>
+    <Menu />
     {children}
     </body>
     </html>

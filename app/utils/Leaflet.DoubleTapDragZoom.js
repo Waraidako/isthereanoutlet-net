@@ -1,3 +1,5 @@
+import L from "leaflet";
+
 L.Map.mergeOptions({
   doubleTapDragZoom: L.Browser.touch && !L.Browser.android23,
   doubleTapDragZoomOptions: {
@@ -5,7 +7,7 @@ L.Map.mergeOptions({
   },
 });
 
-var DoubleTapDragZoom = L.Handler.extend({
+let DoubleTapDragZoom = L.Handler.extend({
   addHooks: function () {
     this._map.on('doubletapdragstart', this._onDoubleTapDragStart, this);
     this._map.on('doubletapdrag', this._onDoubleTapDrag, this);
@@ -20,10 +22,10 @@ var DoubleTapDragZoom = L.Handler.extend({
   },
 
   _onDoubleTapDragStart: function (e) {
-    var map = this._map;
+    let map = this._map;
     if (!e.touches || e.touches.length !== 1 || map._animatingZoom) { return; }
 
-    var p = map.mouseEventToContainerPoint(e.touches[0]);
+    let p = map.mouseEventToContainerPoint(e.touches[0]);
     this._startPointY = p.y;
     this._startPoint = p;
 
@@ -45,17 +47,17 @@ var DoubleTapDragZoom = L.Handler.extend({
   _onDoubleTapDrag: function (e) {
     if (!e.touches || e.touches.length !== 1) { return; }
 
-    var map = this._map;
-    var reverse = this._map.options.doubleTapDragZoomOptions.reverse;
-    var p = map.mouseEventToContainerPoint(e.touches[0]);
+    let map = this._map;
+    let reverse = this._map.options.doubleTapDragZoomOptions.reverse;
+    let p = map.mouseEventToContainerPoint(e.touches[0]);
 
     if (p.y <= 0) {
       return;
     }
 
-    var distance = reverse ? p.y - this._startPointY : this._startPointY - p.y;
+    let distance = reverse ? p.y - this._startPointY : this._startPointY - p.y;
 
-    var scale = Math.pow(Math.E, distance / 200);
+    let scale = Math.pow(Math.E, distance / 200);
 
     if (scale === 1) { return; }
 
@@ -64,7 +66,7 @@ var DoubleTapDragZoom = L.Handler.extend({
     if (map.options.doubleTapDragZoom === 'center') {
       this._center = this._startLatLng;
     } else {
-      var delta =
+      let delta =
         L.point(this._startPoint.x, p.y)
           ._add(this._startPoint)
           .divideBy(2)
@@ -75,7 +77,7 @@ var DoubleTapDragZoom = L.Handler.extend({
 
     L.Util.cancelAnimFrame(this._animRequest);
 
-    var moveFn = L.Util.bind(map._move, map, this._center, this._zoom, {pinch: true, round: false});
+    let moveFn = L.Util.bind(map._move, map, this._center, this._zoom, {pinch: true, round: false});
     this._animRequest = L.Util.requestAnimFrame(moveFn, this, true);
   },
 
