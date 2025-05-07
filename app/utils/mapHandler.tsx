@@ -12,7 +12,7 @@ function generatePopupMarkup(info: string): string {
         <div className="font-montserrat flex-col flex justify-center items-center">
             <div className="font-bold text-xl">{parsedJSON.name}</div>
             {
-                parsedJSON.isconfirmed == 'false'
+                parsedJSON.is_confirmed == false
                 ? <div className="text-red-500">Location is not confirmed</div>
                 : ''
             }
@@ -27,7 +27,7 @@ function generatePopupMarkup(info: string): string {
 }
 /*
 JSON structure: {
-    isconfirmed: "true"/"false" - checks if the point is confirmed
+    is_confirmed: true/false - checks if the point is confirmed
     name: place name,
     description: place description
     photo: link to photo if present

@@ -1,7 +1,7 @@
 DONE - Maps API - something open source and free for starters - Leaflet
 DONE - Red - no outlet, Green - outlet ; Dotted line - not confirmed, solid line - confirmed
-TODO - Set up a proper DB
-TODO - Make the design - will need a side menu
+DONE - Set up a proper DB
+DONE - Make the design - will need a side menu
 TODO - Add/Remove/Edit points:
        - Have to be confirmed
        - Adding triggered by tapping on the map / on a point
@@ -9,7 +9,7 @@ TODO - Add/Remove/Edit points:
        - [optional] Photos
 TODO - Location privilege request
 TODO - Auth + Profile customization
-TODO - 3 access levels - Admin > Mod > User
+DONE - 3 access levels - Admin > Mod > User
 TODO - Comments on points
 TODO - Confirmed/Non-confirmed filter
 TODO - Prospective optimization - group points when zoomed too far away

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import L, {Map, PointExpression} from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "../../public/images/icons/no-outlets-confirmed.png";
@@ -12,6 +12,8 @@ import 'reactjs-popup/dist/index.css';
 import { PrismaClient } from '../generated/prisma/client';
 
 const prisma = new PrismaClient();
+
+let popupOpen: boolean = false;
 
 const iconSize: PointExpression = [48, 48];
 const iconAnchor: PointExpression = [24, 45];
@@ -59,10 +61,21 @@ const hasOutletsNotConfirmedIcon = L.icon({
     popupAnchor: popupAnchor,
 });
 
-export default async function MapDisplay() {
+export default function MapDisplay() {
     const mapRef = useRef(null);
     const mapProt = useRef<Map | null>(null);
-    const points = await prisma.point.findMany();
+    const populateMap = async (leafletMap: Map) => {
+        const req = await fetch("/api/points");
+        const json = await req.json();
+        json.points.map((point: any) => {
+            const pointIconName: string = point.type + (point.is_confirmed ? '-' : '-not-') + 'confirmed.png';
+            placeMarker(leafletMap, JSON.parse(point.coordinates), buildIcon(pointIconName), JSON.stringify({
+                name: point.name,
+                is_confirmed: point.is_confirmed,
+                description: point.description
+            }))
+        })
+    }
 
     useEffect(() => {
         if (mapRef.current && !mapProt.current) {
@@ -78,45 +91,31 @@ export default async function MapDisplay() {
             .setView([55.751934, 37.618346], 16);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             }).addTo(mapProt.current);
-            const map = mapProt.current!;
-
+            const map = mapProt.current;
             const onLocationFound = ((e: any): void => {
                 map.setView(e.latlng, 16)
                 placeMarker(map, e.latlng, hasOutletsConfirmedIcon, JSON.stringify({ name: 'I see you' }));
             });
-
             const onLocationError = ((e: any): void => {
                 map.setView([55.751934, 37.618346], 16);
             })
-
             const onMapClick = ((e:any): void => {
-
+                if (!popupOpen) {
+                    alert('clicked on: ' + e.latlng)
+                }
+                console.log(popupOpen);
             })
-
-            const info1 = JSON.stringify({
-                isconfirmed: 'false',
-                name: "Place #1",
-                description: "A cafe by the fountain",
-                photo: "/images/test.jpg",
-            });
-            //const info2 = JSON.stringify({ name: "Place #2" });
-            //const info3 = JSON.stringify({ name: "Place #3" });
-            //const info4 = JSON.stringify({ name: "Place #4" });
-            placeMarker(mapProt.current, [55.751934, 37.618346], hasOutletsNotConfirmedIcon, info1);
-            //placeMarker(mapProt.current, [55.752934, 37.619346], hasOutletsConfirmedIcon, info2);
-            //placeMarker(mapProt.current, [55.752834, 37.618446], noOutletsConfirmedIcon, info3);
-            //placeMarker(mapProt.current, [55.753934, 37.618556], noOutletsNotConfirmedIcon, info4);
             map.locate({ setView: true, maxZoom: 16 })
             map.on('locationfound', onLocationFound);
             map.on('locationerror', onLocationError);
-            points.map((point) => {
-                const pointIconName: string = point.type + (point.is_confirmed ? '-' : '-not-') + 'confirmed.png';
-                placeMarker(map, JSON.parse(point.coordinates), buildIcon(pointIconName), JSON.stringify({
-                    name: point.name,
-                    isconfirmed: point.is_confirmed,
-                    description: point.description
-                }))
+            map.on('click', onMapClick);
+            map.on('popupopen', () => {
+                popupOpen = true;
             })
+            map.on('popupclose', () => {
+                popupOpen = false;
+            })
+            populateMap(map);
         }
         return () => {
             if (mapProt.current) {
@@ -130,3 +129,16 @@ export default async function MapDisplay() {
         <div ref={mapRef} className="h-[100vh] w-full font-montserrat"/>
     );
 }
+
+/*
+const points = await prisma.point.findMany();
+
+points.map((point) => {
+                const pointIconName: string = point.type + (point.is_confirmed ? '-' : '-not-') + 'confirmed.png';
+                placeMarker(map, JSON.parse(point.coordinates), buildIcon(pointIconName), JSON.stringify({
+                    name: point.name,
+                    isconfirmed: point.is_confirmed,
+                    description: point.description
+                }))
+            })
+ */
