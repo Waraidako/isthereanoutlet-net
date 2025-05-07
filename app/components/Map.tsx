@@ -7,13 +7,7 @@ import "../../public/images/icons/no-outlets-confirmed.png";
 import '../utils/Leaflet.DoubleTapDrag';
 import '../utils/Leaflet.DoubleTapDragZoom';
 import { placeMarker } from "@/app/utils/mapHandler";
-import Popup from 'reactjs-popup';
-import 'reactjs-popup/dist/index.css';
-import { PrismaClient } from '../generated/prisma/client';
-
-const prisma = new PrismaClient();
-
-let popupOpen: boolean = false;
+import { renderToString } from "react-dom/server";
 
 const iconSize: PointExpression = [48, 48];
 const iconAnchor: PointExpression = [24, 45];
@@ -27,6 +21,16 @@ function buildIcon(path: string): L.Icon {
         iconAnchor: iconAnchor,
         popupAnchor: popupAnchor
     })
+}
+
+function buildFormMarkup(e: any): string {
+    return renderToString (
+        <div>
+            <form>
+
+            </form>
+        </div>
+    )
 }
 
 const noOutletsConfirmedIcon = L.icon({
@@ -65,7 +69,7 @@ export default function MapDisplay() {
     const mapRef = useRef(null);
     const mapProt = useRef<Map | null>(null);
     const populateMap = async (leafletMap: Map) => {
-        const req = await fetch("/api/points");
+        const req = await fetch("api/points");
         const json = await req.json();
         json.points.map((point: any) => {
             const pointIconName: string = point.type + (point.is_confirmed ? '-' : '-not-') + 'confirmed.png';
@@ -76,6 +80,7 @@ export default function MapDisplay() {
             }))
         })
     }
+
 
     useEffect(() => {
         if (mapRef.current && !mapProt.current) {
@@ -99,22 +104,38 @@ export default function MapDisplay() {
             const onLocationError = ((e: any): void => {
                 map.setView([55.751934, 37.618346], 16);
             })
-            const onMapClick = ((e:any): void => {
-                if (!popupOpen) {
-                    alert('clicked on: ' + e.latlng)
-                }
-                console.log(popupOpen);
+            const onContextMenu = ((e: any) => {
+                const marker = L.marker(e.latlng, {
+                    icon: buildIcon('outlets-not-defined-confirmed.png')
+
+                }).addTo(map)
+                    .bindPopup(buildFormMarkup(e.latlng), {
+                        //keepInView: true,
+                        //autoPan: true,
+                        //autoPanPadding: markerPadding,
+                    }).openPopup();
+                marker.on('popupclose', () => {
+                    const element = marker.getElement();
+                    if (element) {
+                        element.style.transition = 'opacity 0.3s ease';
+                        element.style.opacity = '0';
+                    }
+                    setTimeout(() => {
+                        map.removeLayer(marker);
+                    }, 300);
+                })
+                let point = map.latLngToLayerPoint(e.latlng);
+                point.y -= map.getSize().y / 4;
+                map.panTo(map.layerPointToLatLng(point));
+                //map.setView(map.layerPointToLatLng(point), 17);
+                // It's not up to Pollo's standards ;(
+                // But shit guess I have to be ok with it
             })
+
             map.locate({ setView: true, maxZoom: 16 })
             map.on('locationfound', onLocationFound);
             map.on('locationerror', onLocationError);
-            map.on('click', onMapClick);
-            map.on('popupopen', () => {
-                popupOpen = true;
-            })
-            map.on('popupclose', () => {
-                popupOpen = false;
-            })
+            map.on('contextmenu', onContextMenu);
             populateMap(map);
         }
         return () => {
