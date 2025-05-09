@@ -26,13 +26,15 @@ function buildIcon(path: string): L.Icon {
 
 function buildFormMarkup(e: LatLng): string {
     return (`
-        <div class="min-w-[250px] flex-col justify-evenly items-center font-montserrat">
-            <form action="/api/add-point" method="POST" class=" min-w-[300px]">
-                <div class="min-w-[250px] mb-2"><input class="min-w-[250px] placeholder-black" type="text" id="coordinates" name="coordinates" readonly placeholder="Coordinates: [`
-        + e.lat.toFixed(6) + ', ' + e.lng.toFixed(6) +
-        `]"/></div>
-                <div class="min-w-[250px] mb-2"><input type="text" id="name" name="name" required placeholder="Name"/></div>
-                <div class="min-w-[250px] mb-2"><input type="submit" value="Add place"></div>
+        <div>
+            <form action="/api/add-point" method="POST" class="">
+                <div class="flex-col justify-items-center items-center min-w-[300px]">
+                    <div class="w-full mb-2"><input class="text-center w-full placeholder-black" type="text" id="coordinates" name="coordinates" readonly placeholder="Coordinates: [`
+                        + e.lat.toFixed(6) + ', ' + e.lng.toFixed(6) +
+                    `]"/></div>
+                    <div class="w-full mb-2"><input class="w-full text-center" type="text" id="name" name="name" required placeholder="Name"/></div>
+                    <div class="w-full mb-2"><input class="w-full text-center" type="submit" value="Add place"></div>
+                </div>
             </form>
         </div>`
     )
