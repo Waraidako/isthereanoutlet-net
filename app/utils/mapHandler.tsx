@@ -8,8 +8,9 @@ export function placeMarker(map: Map, lat: LatLngExpression, icon: L.Icon, info:
 
 function generatePopupMarkup(info: string): string {
     const parsedJSON = JSON.parse(info);
+    let width = 0;
     return renderToString (
-        <div className="font-montserrat flex-col flex justify-center items-center">
+        <div className="font-montserrat flex-col flex justify-center items-center min-w-[200px]">
             <div className="font-bold text-xl">{parsedJSON.name}</div>
             {
                 parsedJSON.is_confirmed == false
@@ -18,7 +19,7 @@ function generatePopupMarkup(info: string): string {
             }
             <div className="mb-2">{parsedJSON.description}</div>
             {
-                parsedJSON.photo != undefined && parsedJSON.photo != ''
+                parsedJSON.photo
                     ? <img src={parsedJSON.photo} alt="photo"></img>
                     : ''
             }

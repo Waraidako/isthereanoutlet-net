@@ -126,6 +126,7 @@ exports.Prisma.PointScalarFieldEnum = {
   description: 'description',
   type: 'type',
   coordinates: 'coordinates',
+  photo: 'photo',
   is_confirmed: 'is_confirmed',
   date_added: 'date_added',
   last_edited: 'last_edited',
@@ -136,6 +137,7 @@ exports.Prisma.PointScalarFieldEnum = {
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   nickname: 'nickname',
+  pass_hash: 'pass_hash',
   date_registered: 'date_registered',
   access_level: 'access_level',
   account_status: 'account_status'

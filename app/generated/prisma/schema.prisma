@@ -20,6 +20,7 @@ model Point {
   description  String
   type         String   @default("has-outlets") // "has-outlets" | "no-outlets"
   coordinates  String   @unique
+  photo        String   @default("")
   is_confirmed Boolean  @default(false)
   added_by     User     @relation(fields: [userId], references: [id])
   date_added   DateTime @default(now())
@@ -31,6 +32,7 @@ model Point {
 model User {
   id              Int      @id @default(autoincrement())
   nickname        String   @unique
+  pass_hash       String   @default("")
   date_registered DateTime @default(now())
   access_level    String   @default("user")
   points_added    Point[]

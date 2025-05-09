@@ -1018,6 +1018,7 @@ export namespace Prisma {
     description: string | null
     type: string | null
     coordinates: string | null
+    photo: string | null
     is_confirmed: boolean | null
     date_added: Date | null
     last_edited: Date | null
@@ -1031,6 +1032,7 @@ export namespace Prisma {
     description: string | null
     type: string | null
     coordinates: string | null
+    photo: string | null
     is_confirmed: boolean | null
     date_added: Date | null
     last_edited: Date | null
@@ -1044,6 +1046,7 @@ export namespace Prisma {
     description: number
     type: number
     coordinates: number
+    photo: number
     is_confirmed: number
     date_added: number
     last_edited: number
@@ -1069,6 +1072,7 @@ export namespace Prisma {
     description?: true
     type?: true
     coordinates?: true
+    photo?: true
     is_confirmed?: true
     date_added?: true
     last_edited?: true
@@ -1082,6 +1086,7 @@ export namespace Prisma {
     description?: true
     type?: true
     coordinates?: true
+    photo?: true
     is_confirmed?: true
     date_added?: true
     last_edited?: true
@@ -1095,6 +1100,7 @@ export namespace Prisma {
     description?: true
     type?: true
     coordinates?: true
+    photo?: true
     is_confirmed?: true
     date_added?: true
     last_edited?: true
@@ -1195,6 +1201,7 @@ export namespace Prisma {
     description: string
     type: string
     coordinates: string
+    photo: string
     is_confirmed: boolean
     date_added: Date
     last_edited: Date
@@ -1227,6 +1234,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     coordinates?: boolean
+    photo?: boolean
     is_confirmed?: boolean
     date_added?: boolean
     last_edited?: boolean
@@ -1241,6 +1249,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     coordinates?: boolean
+    photo?: boolean
     is_confirmed?: boolean
     date_added?: boolean
     last_edited?: boolean
@@ -1255,6 +1264,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     coordinates?: boolean
+    photo?: boolean
     is_confirmed?: boolean
     date_added?: boolean
     last_edited?: boolean
@@ -1269,6 +1279,7 @@ export namespace Prisma {
     description?: boolean
     type?: boolean
     coordinates?: boolean
+    photo?: boolean
     is_confirmed?: boolean
     date_added?: boolean
     last_edited?: boolean
@@ -1276,7 +1287,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type PointOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "type" | "coordinates" | "is_confirmed" | "date_added" | "last_edited" | "is_deleted" | "userId", ExtArgs["result"]["point"]>
+  export type PointOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "type" | "coordinates" | "photo" | "is_confirmed" | "date_added" | "last_edited" | "is_deleted" | "userId", ExtArgs["result"]["point"]>
   export type PointInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     added_by?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -1298,6 +1309,7 @@ export namespace Prisma {
       description: string
       type: string
       coordinates: string
+      photo: string
       is_confirmed: boolean
       date_added: Date
       last_edited: Date
@@ -1732,6 +1744,7 @@ export namespace Prisma {
     readonly description: FieldRef<"Point", 'String'>
     readonly type: FieldRef<"Point", 'String'>
     readonly coordinates: FieldRef<"Point", 'String'>
+    readonly photo: FieldRef<"Point", 'String'>
     readonly is_confirmed: FieldRef<"Point", 'Boolean'>
     readonly date_added: FieldRef<"Point", 'DateTime'>
     readonly last_edited: FieldRef<"Point", 'DateTime'>
@@ -2174,6 +2187,7 @@ export namespace Prisma {
   export type UserMinAggregateOutputType = {
     id: number | null
     nickname: string | null
+    pass_hash: string | null
     date_registered: Date | null
     access_level: string | null
     account_status: string | null
@@ -2182,6 +2196,7 @@ export namespace Prisma {
   export type UserMaxAggregateOutputType = {
     id: number | null
     nickname: string | null
+    pass_hash: string | null
     date_registered: Date | null
     access_level: string | null
     account_status: string | null
@@ -2190,6 +2205,7 @@ export namespace Prisma {
   export type UserCountAggregateOutputType = {
     id: number
     nickname: number
+    pass_hash: number
     date_registered: number
     access_level: number
     account_status: number
@@ -2208,6 +2224,7 @@ export namespace Prisma {
   export type UserMinAggregateInputType = {
     id?: true
     nickname?: true
+    pass_hash?: true
     date_registered?: true
     access_level?: true
     account_status?: true
@@ -2216,6 +2233,7 @@ export namespace Prisma {
   export type UserMaxAggregateInputType = {
     id?: true
     nickname?: true
+    pass_hash?: true
     date_registered?: true
     access_level?: true
     account_status?: true
@@ -2224,6 +2242,7 @@ export namespace Prisma {
   export type UserCountAggregateInputType = {
     id?: true
     nickname?: true
+    pass_hash?: true
     date_registered?: true
     access_level?: true
     account_status?: true
@@ -2319,6 +2338,7 @@ export namespace Prisma {
   export type UserGroupByOutputType = {
     id: number
     nickname: string
+    pass_hash: string
     date_registered: Date
     access_level: string
     account_status: string
@@ -2346,6 +2366,7 @@ export namespace Prisma {
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nickname?: boolean
+    pass_hash?: boolean
     date_registered?: boolean
     access_level?: boolean
     account_status?: boolean
@@ -2356,6 +2377,7 @@ export namespace Prisma {
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nickname?: boolean
+    pass_hash?: boolean
     date_registered?: boolean
     access_level?: boolean
     account_status?: boolean
@@ -2364,6 +2386,7 @@ export namespace Prisma {
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     nickname?: boolean
+    pass_hash?: boolean
     date_registered?: boolean
     access_level?: boolean
     account_status?: boolean
@@ -2372,12 +2395,13 @@ export namespace Prisma {
   export type UserSelectScalar = {
     id?: boolean
     nickname?: boolean
+    pass_hash?: boolean
     date_registered?: boolean
     access_level?: boolean
     account_status?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "date_registered" | "access_level" | "account_status", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nickname" | "pass_hash" | "date_registered" | "access_level" | "account_status", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     points_added?: boolean | User$points_addedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -2393,6 +2417,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: number
       nickname: string
+      pass_hash: string
       date_registered: Date
       access_level: string
       account_status: string
@@ -2822,6 +2847,7 @@ export namespace Prisma {
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
     readonly nickname: FieldRef<"User", 'String'>
+    readonly pass_hash: FieldRef<"User", 'String'>
     readonly date_registered: FieldRef<"User", 'DateTime'>
     readonly access_level: FieldRef<"User", 'String'>
     readonly account_status: FieldRef<"User", 'String'>
@@ -3275,6 +3301,7 @@ export namespace Prisma {
     description: 'description',
     type: 'type',
     coordinates: 'coordinates',
+    photo: 'photo',
     is_confirmed: 'is_confirmed',
     date_added: 'date_added',
     last_edited: 'last_edited',
@@ -3288,6 +3315,7 @@ export namespace Prisma {
   export const UserScalarFieldEnum: {
     id: 'id',
     nickname: 'nickname',
+    pass_hash: 'pass_hash',
     date_registered: 'date_registered',
     access_level: 'access_level',
     account_status: 'account_status'
@@ -3392,6 +3420,7 @@ export namespace Prisma {
     description?: StringFilter<"Point"> | string
     type?: StringFilter<"Point"> | string
     coordinates?: StringFilter<"Point"> | string
+    photo?: StringFilter<"Point"> | string
     is_confirmed?: BoolFilter<"Point"> | boolean
     date_added?: DateTimeFilter<"Point"> | Date | string
     last_edited?: DateTimeFilter<"Point"> | Date | string
@@ -3406,6 +3435,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     coordinates?: SortOrder
+    photo?: SortOrder
     is_confirmed?: SortOrder
     date_added?: SortOrder
     last_edited?: SortOrder
@@ -3423,6 +3453,7 @@ export namespace Prisma {
     name?: StringFilter<"Point"> | string
     description?: StringFilter<"Point"> | string
     type?: StringFilter<"Point"> | string
+    photo?: StringFilter<"Point"> | string
     is_confirmed?: BoolFilter<"Point"> | boolean
     date_added?: DateTimeFilter<"Point"> | Date | string
     last_edited?: DateTimeFilter<"Point"> | Date | string
@@ -3437,6 +3468,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     coordinates?: SortOrder
+    photo?: SortOrder
     is_confirmed?: SortOrder
     date_added?: SortOrder
     last_edited?: SortOrder
@@ -3458,6 +3490,7 @@ export namespace Prisma {
     description?: StringWithAggregatesFilter<"Point"> | string
     type?: StringWithAggregatesFilter<"Point"> | string
     coordinates?: StringWithAggregatesFilter<"Point"> | string
+    photo?: StringWithAggregatesFilter<"Point"> | string
     is_confirmed?: BoolWithAggregatesFilter<"Point"> | boolean
     date_added?: DateTimeWithAggregatesFilter<"Point"> | Date | string
     last_edited?: DateTimeWithAggregatesFilter<"Point"> | Date | string
@@ -3471,6 +3504,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
     nickname?: StringFilter<"User"> | string
+    pass_hash?: StringFilter<"User"> | string
     date_registered?: DateTimeFilter<"User"> | Date | string
     access_level?: StringFilter<"User"> | string
     account_status?: StringFilter<"User"> | string
@@ -3480,6 +3514,7 @@ export namespace Prisma {
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     nickname?: SortOrder
+    pass_hash?: SortOrder
     date_registered?: SortOrder
     access_level?: SortOrder
     account_status?: SortOrder
@@ -3492,6 +3527,7 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
+    pass_hash?: StringFilter<"User"> | string
     date_registered?: DateTimeFilter<"User"> | Date | string
     access_level?: StringFilter<"User"> | string
     account_status?: StringFilter<"User"> | string
@@ -3501,6 +3537,7 @@ export namespace Prisma {
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     nickname?: SortOrder
+    pass_hash?: SortOrder
     date_registered?: SortOrder
     access_level?: SortOrder
     account_status?: SortOrder
@@ -3517,6 +3554,7 @@ export namespace Prisma {
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
     nickname?: StringWithAggregatesFilter<"User"> | string
+    pass_hash?: StringWithAggregatesFilter<"User"> | string
     date_registered?: DateTimeWithAggregatesFilter<"User"> | Date | string
     access_level?: StringWithAggregatesFilter<"User"> | string
     account_status?: StringWithAggregatesFilter<"User"> | string
@@ -3527,6 +3565,7 @@ export namespace Prisma {
     description: string
     type?: string
     coordinates: string
+    photo?: string
     is_confirmed?: boolean
     date_added?: Date | string
     last_edited?: Date | string
@@ -3540,6 +3579,7 @@ export namespace Prisma {
     description: string
     type?: string
     coordinates: string
+    photo?: string
     is_confirmed?: boolean
     date_added?: Date | string
     last_edited?: Date | string
@@ -3552,6 +3592,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     coordinates?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     is_confirmed?: BoolFieldUpdateOperationsInput | boolean
     date_added?: DateTimeFieldUpdateOperationsInput | Date | string
     last_edited?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3565,6 +3606,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     coordinates?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     is_confirmed?: BoolFieldUpdateOperationsInput | boolean
     date_added?: DateTimeFieldUpdateOperationsInput | Date | string
     last_edited?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3578,6 +3620,7 @@ export namespace Prisma {
     description: string
     type?: string
     coordinates: string
+    photo?: string
     is_confirmed?: boolean
     date_added?: Date | string
     last_edited?: Date | string
@@ -3590,6 +3633,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     coordinates?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     is_confirmed?: BoolFieldUpdateOperationsInput | boolean
     date_added?: DateTimeFieldUpdateOperationsInput | Date | string
     last_edited?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3602,6 +3646,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     coordinates?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     is_confirmed?: BoolFieldUpdateOperationsInput | boolean
     date_added?: DateTimeFieldUpdateOperationsInput | Date | string
     last_edited?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3611,6 +3656,7 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     nickname: string
+    pass_hash?: string
     date_registered?: Date | string
     access_level?: string
     account_status?: string
@@ -3620,6 +3666,7 @@ export namespace Prisma {
   export type UserUncheckedCreateInput = {
     id?: number
     nickname: string
+    pass_hash?: string
     date_registered?: Date | string
     access_level?: string
     account_status?: string
@@ -3628,6 +3675,7 @@ export namespace Prisma {
 
   export type UserUpdateInput = {
     nickname?: StringFieldUpdateOperationsInput | string
+    pass_hash?: StringFieldUpdateOperationsInput | string
     date_registered?: DateTimeFieldUpdateOperationsInput | Date | string
     access_level?: StringFieldUpdateOperationsInput | string
     account_status?: StringFieldUpdateOperationsInput | string
@@ -3637,6 +3685,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     nickname?: StringFieldUpdateOperationsInput | string
+    pass_hash?: StringFieldUpdateOperationsInput | string
     date_registered?: DateTimeFieldUpdateOperationsInput | Date | string
     access_level?: StringFieldUpdateOperationsInput | string
     account_status?: StringFieldUpdateOperationsInput | string
@@ -3646,6 +3695,7 @@ export namespace Prisma {
   export type UserCreateManyInput = {
     id?: number
     nickname: string
+    pass_hash?: string
     date_registered?: Date | string
     access_level?: string
     account_status?: string
@@ -3653,6 +3703,7 @@ export namespace Prisma {
 
   export type UserUpdateManyMutationInput = {
     nickname?: StringFieldUpdateOperationsInput | string
+    pass_hash?: StringFieldUpdateOperationsInput | string
     date_registered?: DateTimeFieldUpdateOperationsInput | Date | string
     access_level?: StringFieldUpdateOperationsInput | string
     account_status?: StringFieldUpdateOperationsInput | string
@@ -3661,6 +3712,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     nickname?: StringFieldUpdateOperationsInput | string
+    pass_hash?: StringFieldUpdateOperationsInput | string
     date_registered?: DateTimeFieldUpdateOperationsInput | Date | string
     access_level?: StringFieldUpdateOperationsInput | string
     account_status?: StringFieldUpdateOperationsInput | string
@@ -3719,6 +3771,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     coordinates?: SortOrder
+    photo?: SortOrder
     is_confirmed?: SortOrder
     date_added?: SortOrder
     last_edited?: SortOrder
@@ -3737,6 +3790,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     coordinates?: SortOrder
+    photo?: SortOrder
     is_confirmed?: SortOrder
     date_added?: SortOrder
     last_edited?: SortOrder
@@ -3750,6 +3804,7 @@ export namespace Prisma {
     description?: SortOrder
     type?: SortOrder
     coordinates?: SortOrder
+    photo?: SortOrder
     is_confirmed?: SortOrder
     date_added?: SortOrder
     last_edited?: SortOrder
@@ -3831,6 +3886,7 @@ export namespace Prisma {
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     nickname?: SortOrder
+    pass_hash?: SortOrder
     date_registered?: SortOrder
     access_level?: SortOrder
     account_status?: SortOrder
@@ -3843,6 +3899,7 @@ export namespace Prisma {
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     nickname?: SortOrder
+    pass_hash?: SortOrder
     date_registered?: SortOrder
     access_level?: SortOrder
     account_status?: SortOrder
@@ -3851,6 +3908,7 @@ export namespace Prisma {
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     nickname?: SortOrder
+    pass_hash?: SortOrder
     date_registered?: SortOrder
     access_level?: SortOrder
     account_status?: SortOrder
@@ -4045,6 +4103,7 @@ export namespace Prisma {
 
   export type UserCreateWithoutPoints_addedInput = {
     nickname: string
+    pass_hash?: string
     date_registered?: Date | string
     access_level?: string
     account_status?: string
@@ -4053,6 +4112,7 @@ export namespace Prisma {
   export type UserUncheckedCreateWithoutPoints_addedInput = {
     id?: number
     nickname: string
+    pass_hash?: string
     date_registered?: Date | string
     access_level?: string
     account_status?: string
@@ -4076,6 +4136,7 @@ export namespace Prisma {
 
   export type UserUpdateWithoutPoints_addedInput = {
     nickname?: StringFieldUpdateOperationsInput | string
+    pass_hash?: StringFieldUpdateOperationsInput | string
     date_registered?: DateTimeFieldUpdateOperationsInput | Date | string
     access_level?: StringFieldUpdateOperationsInput | string
     account_status?: StringFieldUpdateOperationsInput | string
@@ -4084,6 +4145,7 @@ export namespace Prisma {
   export type UserUncheckedUpdateWithoutPoints_addedInput = {
     id?: IntFieldUpdateOperationsInput | number
     nickname?: StringFieldUpdateOperationsInput | string
+    pass_hash?: StringFieldUpdateOperationsInput | string
     date_registered?: DateTimeFieldUpdateOperationsInput | Date | string
     access_level?: StringFieldUpdateOperationsInput | string
     account_status?: StringFieldUpdateOperationsInput | string
@@ -4094,6 +4156,7 @@ export namespace Prisma {
     description: string
     type?: string
     coordinates: string
+    photo?: string
     is_confirmed?: boolean
     date_added?: Date | string
     last_edited?: Date | string
@@ -4106,6 +4169,7 @@ export namespace Prisma {
     description: string
     type?: string
     coordinates: string
+    photo?: string
     is_confirmed?: boolean
     date_added?: Date | string
     last_edited?: Date | string
@@ -4147,6 +4211,7 @@ export namespace Prisma {
     description?: StringFilter<"Point"> | string
     type?: StringFilter<"Point"> | string
     coordinates?: StringFilter<"Point"> | string
+    photo?: StringFilter<"Point"> | string
     is_confirmed?: BoolFilter<"Point"> | boolean
     date_added?: DateTimeFilter<"Point"> | Date | string
     last_edited?: DateTimeFilter<"Point"> | Date | string
@@ -4160,6 +4225,7 @@ export namespace Prisma {
     description: string
     type?: string
     coordinates: string
+    photo?: string
     is_confirmed?: boolean
     date_added?: Date | string
     last_edited?: Date | string
@@ -4171,6 +4237,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     coordinates?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     is_confirmed?: BoolFieldUpdateOperationsInput | boolean
     date_added?: DateTimeFieldUpdateOperationsInput | Date | string
     last_edited?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4183,6 +4250,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     coordinates?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     is_confirmed?: BoolFieldUpdateOperationsInput | boolean
     date_added?: DateTimeFieldUpdateOperationsInput | Date | string
     last_edited?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4195,6 +4263,7 @@ export namespace Prisma {
     description?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     coordinates?: StringFieldUpdateOperationsInput | string
+    photo?: StringFieldUpdateOperationsInput | string
     is_confirmed?: BoolFieldUpdateOperationsInput | boolean
     date_added?: DateTimeFieldUpdateOperationsInput | Date | string
     last_edited?: DateTimeFieldUpdateOperationsInput | Date | string

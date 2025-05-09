@@ -1,13 +1,14 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react";
-import L, {Map, PointExpression} from 'leaflet';
+import L, {LatLng, Map, PointExpression} from 'leaflet';
 import "leaflet/dist/leaflet.css";
 import "../../public/images/icons/no-outlets-confirmed.png";
 import '../utils/Leaflet.DoubleTapDrag';
 import '../utils/Leaflet.DoubleTapDragZoom';
 import { placeMarker } from "@/app/utils/mapHandler";
-import { renderToString } from "react-dom/server";
+import {renderToStaticMarkup, renderToString} from "react-dom/server";
+import {createRoot} from "react-dom/client";
 
 const iconSize: PointExpression = [48, 48];
 const iconAnchor: PointExpression = [24, 45];
@@ -23,51 +24,24 @@ function buildIcon(path: string): L.Icon {
     })
 }
 
-function buildFormMarkup(e: any): string {
-    return renderToString (
-        <div>
-            <form>
-
+function buildFormMarkup(e: LatLng): string {
+    return (`
+        <div class="min-w-[250px] flex-col justify-evenly items-center font-montserrat">
+            <form action="/api/add-point" method="POST" class=" min-w-[300px]">
+                <div class="min-w-[250px] mb-2"><input class="min-w-[250px] placeholder-black" type="text" id="coordinates" name="coordinates" readonly placeholder="Coordinates: [`
+        + e.lat.toFixed(6) + ', ' + e.lng.toFixed(6) +
+        `]"/></div>
+                <div class="min-w-[250px] mb-2"><input type="text" id="name" name="name" required placeholder="Name"/></div>
+                <div class="min-w-[250px] mb-2"><input type="submit" value="Add place"></div>
             </form>
-        </div>
+        </div>`
     )
 }
-
-const noOutletsConfirmedIcon = L.icon({
-    iconUrl: "/images/icons/no-outlets-confirmed.png",
-
-    iconSize: iconSize,
-    iconAnchor: iconAnchor,
-    popupAnchor: popupAnchor,
-});
-
-const noOutletsNotConfirmedIcon = L.icon({
-    iconUrl: "/images/icons/no-outlets-not-confirmed.png",
-
-    iconSize: iconSize,
-    iconAnchor: iconAnchor,
-    popupAnchor: popupAnchor,
-});
-
-const hasOutletsConfirmedIcon = L.icon({
-    iconUrl: "/images/icons/has-outlets-confirmed.png",
-
-    iconSize: iconSize,
-    iconAnchor: iconAnchor,
-    popupAnchor: popupAnchor,
-});
-
-const hasOutletsNotConfirmedIcon = L.icon({
-    iconUrl: "/images/icons/has-outlets-not-confirmed.png",
-
-    iconSize: iconSize,
-    iconAnchor: iconAnchor,
-    popupAnchor: popupAnchor,
-});
 
 export default function MapDisplay() {
     const mapRef = useRef(null);
     const mapProt = useRef<Map | null>(null);
+
     const populateMap = async (leafletMap: Map) => {
         const req = await fetch("api/points");
         const json = await req.json();
@@ -76,11 +50,11 @@ export default function MapDisplay() {
             placeMarker(leafletMap, JSON.parse(point.coordinates), buildIcon(pointIconName), JSON.stringify({
                 name: point.name,
                 is_confirmed: point.is_confirmed,
+                photo: point.photo,
                 description: point.description
             }))
         })
     }
-
 
     useEffect(() => {
         if (mapRef.current && !mapProt.current) {
@@ -99,7 +73,7 @@ export default function MapDisplay() {
             const map = mapProt.current;
             const onLocationFound = ((e: any): void => {
                 map.setView(e.latlng, 16)
-                placeMarker(map, e.latlng, hasOutletsConfirmedIcon, JSON.stringify({ name: 'I see you' }));
+                placeMarker(map, e.latlng, buildIcon('has-outlets-confirmed.png'), JSON.stringify({ name: 'I see you' }));
             });
             const onLocationError = ((e: any): void => {
                 map.setView([55.751934, 37.618346], 16);
@@ -110,7 +84,7 @@ export default function MapDisplay() {
 
                 }).addTo(map)
                     .bindPopup(buildFormMarkup(e.latlng), {
-                        //keepInView: true,
+                        keepInView: true,
                         //autoPan: true,
                         //autoPanPadding: markerPadding,
                     }).openPopup();
@@ -150,16 +124,3 @@ export default function MapDisplay() {
         <div ref={mapRef} className="h-[100vh] w-full font-montserrat"/>
     );
 }
-
-/*
-const points = await prisma.point.findMany();
-
-points.map((point) => {
-                const pointIconName: string = point.type + (point.is_confirmed ? '-' : '-not-') + 'confirmed.png';
-                placeMarker(map, JSON.parse(point.coordinates), buildIcon(pointIconName), JSON.stringify({
-                    name: point.name,
-                    isconfirmed: point.is_confirmed,
-                    description: point.description
-                }))
-            })
- */

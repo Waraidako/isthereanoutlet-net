@@ -1,4 +1,4 @@
-import { PrismaClient } from '../generated/prisma/client';
+import { PrismaClient } from '@/app/generated/prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -17,7 +17,8 @@ async function seed() {
                         type: 'has-outlets',
                         is_confirmed: true,
                         coordinates: "[55.751934, 37.618346]",
-                        description: "cool ass point"
+                        description: "cool ass point",
+                        photo: "images/test.jpg",
                     },
                     {
                         name: 'place #2',
@@ -62,7 +63,7 @@ async function seed() {
                         name: 'place #4',
                         type: 'no-outlets',
                         is_confirmed: false,
-                        coordinates: '55.753934, 37.618556]',
+                        coordinates: '[55.753934, 37.618556]',
                         description: 'cool ahh place daym #4'
                     }
                 ]
