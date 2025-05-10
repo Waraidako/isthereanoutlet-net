@@ -11,13 +11,17 @@ function generatePopupMarkup(info: string): string {
     let width = 0;
     return renderToString (
         <div className="font-montserrat flex-col flex justify-center items-center min-w-[200px]">
-            <div className="font-bold text-xl">{parsedJSON.name}</div>
+            <div className="font-bold text-xl text-center">{parsedJSON.name}</div>
             {
                 parsedJSON.is_confirmed == false
                 ? <div className="text-red-500">Location is not confirmed</div>
                 : ''
             }
-            <div className="mb-2">{parsedJSON.description}</div>
+            {
+                parsedJSON.description
+                    ? <div className="mb-2 text-center">{parsedJSON.description}</div>
+                    : ''
+            }
             {
                 parsedJSON.photo
                     ? <img src={parsedJSON.photo} alt="photo"></img>

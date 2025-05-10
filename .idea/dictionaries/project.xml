@@ -6,6 +6,7 @@
       <w>doubletapdragstart</w>
       <w>locationerror</w>
       <w>locationfound</w>
+      <w>popupclose</w>
     </words>
   </dictionary>
 </component>
