@@ -12,6 +12,8 @@ const iconSize: PointExpression = [48, 48];
 const iconAnchor: PointExpression = [24, 45];
 const popupAnchor: PointExpression = [0, -45];
 
+let locationDetected: boolean = false;
+
 function buildIcon(path: string,
                    customSize: PointExpression = iconSize,
                    customIconAnchor: PointExpression = iconAnchor,
@@ -36,7 +38,7 @@ function buildFormMarkup(e: LatLng): string {
                     value="[` + e.lat.toFixed(6).toString() + ', ' + e.lng.toFixed(6).toString() + `]"/></div>
                     <div class="w-full mb-2"><input class="w-full p-[8px] focus:outline-gray-400" type="text" id="name" name="name" required placeholder="Name*"/></div>
                     <div class="w-full mb-2"><input class="w-full p-[8px] focus:outline-gray-400" type="text" id="description" name="description" required placeholder="Description*"/></div>
-                    <div class="w-full mb-2"><input class="w-full" type="file" accept=".png, .jpg, .jpeg, .gif" /></div>
+                    <div class="w-full mb-2"><input class="w-full" type="file" id="photo" name="photo" accept=".png, .jpg, .jpeg, .gif" /></div>
                     
                     <div class="radio-wrapper-19">
                         <div class="radio-inputs-19">
@@ -89,9 +91,12 @@ async function placeNewPoint(map: Map, coords: L.LatLng) {
     }))
 }
 
+function setLocationDetected(value: boolean): void { // Did this for shits and giggles tbh
+    locationDetected = value;
+}
+
 export default function MapDisplay() {
 
-    const [ locationDetected, setLocationDetected ] = useState<boolean>(false);
 
     const mapRef = useRef(null);
     const mapProt = useRef<Map | null>(null);
@@ -149,13 +154,6 @@ export default function MapDisplay() {
                     }, 300);
                 })
 
-                /*const changeHandler = (e: any) => {
-                    const icon = e.target.value;
-                    if (icon === "Has outlets") marker.setIcon(buildIcon('has-outlets-confirmed.png'));
-                    else if (icon === "No outlets") marker.setIcon(buildIcon('no-outlets-confirmed.png'));
-                    else marker.setIcon(buildIcon('outlets-not-specified-confirmed.png'));
-                }*/
-
                 const form = document.getElementById("addPoint") as HTMLFormElement;
                 form.addEventListener('submit', async (e: Event) => {
                     e.preventDefault();
@@ -163,10 +161,29 @@ export default function MapDisplay() {
                     const target = e.target as HTMLFormElement;
                     const formData = new FormData(target);
                     const jsonData: Record<string, any> = {};
+
+                    let photoName: string = '';
+
+                    const file = (document.getElementById('photo') as HTMLInputElement).files?.[0];
+                    if (file) {
+                        const arrayBuffer = await file.arrayBuffer();
+                        const blob = new Blob([arrayBuffer], { type: file.type });
+                        photoName = crypto.randomUUID() + '.' + file.type.split('/')[1];
+
+                        await fetch('/api/upload-photo', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': file.type,
+                                'X-Filename': photoName,
+                            },
+                            body: blob,
+                        })
+                    }
+
                     formData.forEach((value, key) => {
-                        jsonData[key] = value;
+                        key != 'photo' ? (jsonData[key] = value) : jsonData[key] = photoName;
                     });
-                    jsonData['is_confirmed'] = true;
+                    jsonData['is_confirmed'] = true;  // TODO: change when implementing access levels
                     const res = await fetch('/api/add-point', {
                         method: 'POST',
                         headers: {
@@ -174,11 +191,19 @@ export default function MapDisplay() {
                         },
                         body: JSON.stringify(jsonData),
                     })
-                    marker.bindPopup(`
+                    if (res.ok) {
+                        marker.bindPopup(`
                         <div class='font-montserrat min-w-[300px] text-green-600 text-xl text-center'>Point has been added</div>
                     `).on('popupclose', () => {
-                        placeNewPoint(map, coords.latlng);
-                    });
+                            placeNewPoint(map, coords.latlng);
+                        });
+                    } else {
+                        marker.bindPopup(`
+                        <div class='font-montserrat min-w-[300px] text-red-600 text-xl text-center'>An error occurred, point not added</div>
+                    `).on('popupclose', () => {
+                            placeNewPoint(map, coords.latlng);
+                        });
+                    }
                     return false;
                 });
 
@@ -190,7 +215,7 @@ export default function MapDisplay() {
                 // But shit guess I have to be ok with it
             })
 
-            map.locate({ maxZoom: 16, watch: true, timeout: 30000 }) // Prospective "enableHighAccuracy: true" use
+            map.locate({ maxZoom: 16, watch: true, timeout: 30000, enableHighAccuracy: true }) // Prospective "enableHighAccuracy: true" use
             map.on('locationfound', onLocationFound);
             map.on('locationerror', onLocationError);
             map.on('contextmenu', onContextMenu);

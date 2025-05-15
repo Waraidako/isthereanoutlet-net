@@ -42,3 +42,6 @@ next-env.d.ts
 
 #Geocode API key
 esri-key.txt
+
+# points' pictures
+/public/images/points
