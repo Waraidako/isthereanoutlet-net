@@ -34,8 +34,10 @@ function buildFormMarkup(e: LatLng): string {
                 <div class="flex-col justify-items-center items-center min-w-[300px]">
                     <div class="w-full mb-4">Coordinates: <input class="text-center focus:outline-0" type="text" id="coordinates" name="coordinates" readonly
                     value="[` + e.lat.toFixed(6).toString() + ', ' + e.lng.toFixed(6).toString() + `]"/></div>
-                    <div class="w-full mb-2"><input class="w-full p-[8px] focus:outline-gray-400" type="text" id="name" name="name" required placeholder="Name"/></div>
-                    <div class="w-full mb-6"><input class="w-full p-[8px] focus:outline-gray-400" type="text" id="description" name="description" required placeholder="Description"/></div>
+                    <div class="w-full mb-2"><input class="w-full p-[8px] focus:outline-gray-400" type="text" id="name" name="name" required placeholder="Name*"/></div>
+                    <div class="w-full mb-2"><input class="w-full p-[8px] focus:outline-gray-400" type="text" id="description" name="description" required placeholder="Description*"/></div>
+                    <div class="w-full mb-2"><input class="w-full" type="file" accept=".png, .jpg, .jpeg, .gif" /></div>
+                    
                     <div class="radio-wrapper-19">
                         <div class="radio-inputs-19">
                             <label for="example-19-1">
@@ -107,7 +109,7 @@ export default function MapDisplay() {
                 zoomControl: false,
             })
             .setView([55.751934, 37.618346], 16);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             }).addTo(mapProt.current);
             const map = mapProt.current;
             const locationMarker = L.marker([55.751934, 37.618346], {
@@ -180,13 +182,6 @@ export default function MapDisplay() {
                     return false;
                 });
 
-                const fileUpload = document.getElementById("fileUpload") as HTMLFormElement;
-                fileUpload.addEventListener('change', (e) => {
-                    e.preventDefault();
-
-
-                })
-
                 let point = map.latLngToLayerPoint(coords.latlng);
                 point.y -= map.getSize().y / 10;
                 map.panTo(map.layerPointToLatLng(point));
@@ -195,7 +190,7 @@ export default function MapDisplay() {
                 // But shit guess I have to be ok with it
             })
 
-            map.locate({ maxZoom: 16, watch: true, /*enableHighAccuracy: true  // Works yucky rn */ })
+            map.locate({ maxZoom: 16, watch: true, timeout: 30000 }) // Prospective "enableHighAccuracy: true" use
             map.on('locationfound', onLocationFound);
             map.on('locationerror', onLocationError);
             map.on('contextmenu', onContextMenu);

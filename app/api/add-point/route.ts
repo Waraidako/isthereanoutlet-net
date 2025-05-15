@@ -5,6 +5,14 @@ const prisma = new PrismaClient();
 
 export async function POST(req: Request): Promise<Response> {
     const pointData = await req.json();
+
+    const photo: string[] = pointData.photo ? pointData.photo.split('.') : [""];
+    const photoExtension: string = photo[photo.length - 1];
+    const allowedExtensions: string[] = ["png", "jpg", "jpeg", "gif"];
+    if (photoExtension in allowedExtensions) {
+        Я^^
+    }
+
     const res = await prisma.point.upsert({
         where: { coordinates: pointData.coordinates },
         update: {},
