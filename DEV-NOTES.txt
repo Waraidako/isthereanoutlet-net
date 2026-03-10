@@ -1,4 +1,4 @@
-DONE - Maps API - something open source and free for starters - Leaflet
+DONE - Maps API - something open source and free for starters - Leaflet + OpenStreetMaps
 DONE - Red - no outlet, Green - outlet ; Dotted line - not confirmed, solid line - confirmed
 DONE - Set up a proper DB
 DONE - Make the design - will need a side menu

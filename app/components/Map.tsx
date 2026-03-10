@@ -199,7 +199,7 @@ export default function MapDisplay() {
                         });
                     } else {
                         marker.bindPopup(`
-                        <div class='font-montserrat min-w-[300px] text-red-600 text-xl text-center'>An error occurred, point not added</div>
+                        <div class='font-montserrat min-w-[300px] text-red-600 text-xl text-center'>An error occurred, point has not been added. Please try again</div>
                     `).on('popupclose', () => {
                             placeNewPoint(map, coords.latlng);
                         });
@@ -215,7 +215,7 @@ export default function MapDisplay() {
                 // But shit guess I have to be ok with it
             })
 
-            map.locate({ maxZoom: 16, watch: true, timeout: 30000, enableHighAccuracy: true }) // Prospective "enableHighAccuracy: true" use
+            map.locate({ maxZoom: 16, watch: true, timeout: 30000, /*enableHighAccuracy: true*/ }) // Prospective "enableHighAccuracy: true" use
             map.on('locationfound', onLocationFound);
             map.on('locationerror', onLocationError);
             map.on('contextmenu', onContextMenu);
