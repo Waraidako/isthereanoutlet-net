@@ -24,7 +24,7 @@ function generatePopupMarkup(info: string): string {
             }
             {
                 parsedJSON.photo
-                    ? <img src={parsedJSON.photo} alt="photo"></img>
+                    ? <img src={parsedJSON.photo} className={'text-gray-500'} alt="photo"></img>
                     : ''
             }
         </div>

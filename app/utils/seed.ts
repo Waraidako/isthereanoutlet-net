@@ -1,9 +1,15 @@
 import { PrismaClient } from '@/app/generated/prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
+import {env} from "prisma/config";
 
-const prisma = new PrismaClient();
+const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
-async function seed() {
-    const adminUser = await prisma.user.upsert({
+async function main() {
+    // Admin User
+    await prisma.user.upsert({
         where: { nickname: 'waraidako' },
         update: {},
         create: {
@@ -18,7 +24,7 @@ async function seed() {
                         is_confirmed: true,
                         coordinates: "[55.751934, 37.618346]",
                         description: "cool ass point",
-                        photo: "images/test.jpg",
+                        photo: "images/points/test.jpg",
                     },
                     {
                         name: 'place #2',
@@ -31,12 +37,14 @@ async function seed() {
             }
         }
     });
-    const modUser = await prisma.user.upsert({
+
+    // Admin User
+    await prisma.user.upsert({
         where: { nickname: 'kvadrokpoptel' },
         update: {},
         create: {
             nickname: 'kvadrokpoptel',
-            access_level: 'mod',
+            access_level: 'admin',
             account_status: 'active',
             points_added: {
                 create: [
@@ -51,7 +59,9 @@ async function seed() {
             }
         }
     });
-    const regularUser = await prisma.user.upsert({
+
+    // Regular User
+    await prisma.user.upsert({
         where: { nickname: 'SASUr04ek' },
         update: {},
         create: {
@@ -69,14 +79,17 @@ async function seed() {
                 ]
             }
         }
-    })
-    console.log('seeded the db');
+    });
+
+    console.log('Seeding finished.');
 }
-seed()
+
+main()
     .then(async () => {
         await prisma.$disconnect();
-    }).catch(async (e) => {
+    })
+    .catch(async (e) => {
         console.error(e);
         await prisma.$disconnect();
         process.exit(1);
-})
+    });
