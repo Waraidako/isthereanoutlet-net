@@ -1,8 +1,12 @@
-import { PrismaClient } from '@/app/generated/prisma';
-import fs from 'fs';
+import { PrismaClient } from '@/app/generated/prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
+import 'dotenv/config';
 import path from 'path';
 
-const prisma = new PrismaClient();
+const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 export async function POST(req: Request): Promise<Response> {
     const pointData = await req.json();

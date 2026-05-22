@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat, Roboto_Mono, Source_Code_Pro } from "next/font/google";
 import "./globals.css";
 import Menu from "./components/Menu";
+import { Providers } from "@/app/components/Providers";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -33,15 +34,17 @@ export default function RootLayout({
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     </head>
     <body className={`${robotoMono.variable} ${montserrat.variable} antialiased`}>
-    {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    <Providers>
+      {/* eslint-disable-next-line @next/next/no-sync-scripts */}
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossOrigin=""></script>
-      <script src="https://unpkg.com/leaflet"></script>
-      <script src="https://unpkg.com/leaflet-doubletapdrag"></script>
-      <script src="https://unpkg.com/leaflet-doubletapdragzoom"></script>
-    <Menu />
-    {children}
+        <script src="https://unpkg.com/leaflet"></script>
+        <script src="https://unpkg.com/leaflet-doubletapdrag"></script>
+        <script src="https://unpkg.com/leaflet-doubletapdragzoom"></script>
+      <Menu />
+      {children}
+    </Providers>
     </body>
     </html>
   );

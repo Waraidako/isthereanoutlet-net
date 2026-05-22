@@ -7,12 +7,14 @@ import "../../public/images/icons/no-outlets-confirmed.png";
 import '../utils/Leaflet.DoubleTapDrag';
 import '../utils/Leaflet.DoubleTapDragZoom';
 import { placeMarker } from "@/app/utils/mapHandler";
+import { Session, useSession } from 'next-auth/react';
 
 const iconSize: PointExpression = [48, 48];
 const iconAnchor: PointExpression = [24, 45];
 const popupAnchor: PointExpression = [0, -45];
 
 let locationDetected: boolean = false;
+
 
 function buildIcon(path: string,
                    customSize: PointExpression = iconSize,
@@ -28,7 +30,16 @@ function buildIcon(path: string,
     })
 }
 
-function buildFormMarkup(e: LatLng): string {
+function buildFormMarkup(e: LatLng, isLoggedIn: boolean): string {
+    if (!isLoggedIn) {
+        return `
+      <div class="font-montserrat min-w-[300px] text-center p-4">
+        <div class="text-red-600 text-xl mb-4 font-bold">Access Denied</div>
+        <p class="mb-4">You must be logged in to add points to the map.</p>
+        <a href="/auth/login" class="text-blue-600 underline font-bold">Sign In Here</a>
+      </div>`;
+    }
+
     return (`
         <div class="font-montserrat">
             <div class="text-2xl mb-5 text-center font-bold">Adding point</div>
@@ -97,7 +108,7 @@ function setLocationDetected(value: boolean): void { // Did this for shits and g
 
 export default function MapDisplay() {
 
-
+    const { data: session, status } = useSession();
     const mapRef = useRef(null);
     const mapProt = useRef<Map | null>(null);
 
@@ -135,10 +146,13 @@ export default function MapDisplay() {
                 locationMarker.remove();
             })
             const onContextMenu = ((coords: any) => {
+
+                const isLoggedIn = status === 'authenticated';
+
                 const marker = L.marker(coords.latlng, {
                     icon: buildIcon('outlets-not-defined-confirmed.png')
                 }).addTo(map)
-                    .bindPopup(buildFormMarkup(coords.latlng), {
+                    .bindPopup(buildFormMarkup(coords.latlng, isLoggedIn), {
                         keepInView: true,
                         //autoPan: true,
                         //autoPanPadding: markerPadding,
@@ -153,6 +167,8 @@ export default function MapDisplay() {
                         map.removeLayer(marker);
                     }, 300);
                 })
+
+                if (!isLoggedIn) return;
 
                 const form = document.getElementById("addPoint") as HTMLFormElement;
                 form.addEventListener('submit', async (e: Event) => {
@@ -183,7 +199,15 @@ export default function MapDisplay() {
                     formData.forEach((value, key) => {
                         key != 'photo' ? (jsonData[key] = value) : jsonData[key] = photoName;
                     });
-                    jsonData['is_confirmed'] = true;  // TODO: change when implementing access levels
+                    type ExtendedSession = Session & {
+                        user: {
+                            role: string;
+                        }
+                    };
+                    const extendedSession = session as unknown as ExtendedSession;
+
+                    jsonData['is_confirmed'] = extendedSession?.user?.role === 'admin';  // TODO: change when implementing access levels
+                    jsonData['userId'] = extendedSession?.user?.id;
                     const res = await fetch('/api/add-point', {
                         method: 'POST',
                         headers: {
@@ -200,9 +224,10 @@ export default function MapDisplay() {
                     } else {
                         marker.bindPopup(`
                         <div class='font-montserrat min-w-[300px] text-red-600 text-xl text-center'>An error occurred, point has not been added. Please try again</div>
-                    `).on('popupclose', () => {
-                            placeNewPoint(map, coords.latlng);
-                        });
+                    `)
+                    // .on('popupclose', () => {
+                    //         placeNewPoint(map, coords.latlng);
+                    //     });
                     }
                     return false;
                 });
@@ -227,7 +252,7 @@ export default function MapDisplay() {
                 mapProt.current = null;
             }
         };
-    }, []);
+    }, [status]);
 
     return (
         <div ref={mapRef} className="h-[100vh] w-full font-montserrat"/>
