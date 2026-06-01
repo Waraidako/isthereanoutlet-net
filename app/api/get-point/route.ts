@@ -8,8 +8,17 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 export async function GET(req: Request): Promise<Response> {
-    const coords = decodeURIComponent(req.url.split('=')[1]);
-    const res = await prisma.point.findUnique({
+    console.log(req.url);
+    console.log(decodeURIComponent(req.url));
+    // const coords = decodeURIComponent(req.url.split('=')[1]);
+
+    const { searchParams } = new URL(req.url);
+    const coords = searchParams.get('coordinates');
+
+    if (!coords) return Response.json({ status: 400, error: 'Missing coordinates' });
+
+    console.log(coords);
+    const res = await prisma.point.findFirst({
         where: {
             coordinates: coords,
         },

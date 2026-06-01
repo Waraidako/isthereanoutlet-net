@@ -72,22 +72,28 @@ function buildFormMarkup(e: LatLng, isLoggedIn: boolean): string {
     )
 }
 
-async function populateMap(leafletMap: Map) {
+async function populateMap(leafletMap: Map, session: any, status: string) {
     const req = await fetch("api/points");
     const json = await req.json();
+    localStorage.setItem('points', JSON.stringify(json.points));
     json.points.map((point: any) => {
         const pointIconName: string = point.type + (point.is_confirmed ? '-' : '-not-') + 'confirmed.png';
         placeMarker(leafletMap, JSON.parse(point.coordinates), buildIcon(pointIconName), JSON.stringify({
+            id: point.id,
+            userId: point.userId,
             name: point.name,
             is_confirmed: point.is_confirmed,
             photo: point.photo,
             description: point.description
-        }))
+        }),
+            session,
+            status
+        )
     })
 }
 
-async function placeNewPoint(map: Map, coords: L.LatLng) {
-    const latlngAsString = '[' + coords.lat.toFixed(6).toString() + ', ' + coords.lng.toFixed(6).toString() + ']';
+async function placeNewPoint(map: Map, coords: L.LatLng, session: any, status: string) {
+    const latlngAsString = '[' + coords.lat.toFixed(6).toString().replace('+', '') + ', ' + coords.lng.toFixed(6).toString().replace('+', '') + ']';
     const req = await fetch('/api/get-point?coordinates=' + encodeURIComponent(latlngAsString), {
         method: 'GET',
     });
@@ -99,7 +105,10 @@ async function placeNewPoint(map: Map, coords: L.LatLng) {
         is_confirmed: newPoint.is_confirmed,
         photo: newPoint.photo,
         description: newPoint.description
-    }))
+    }),
+        session,
+        status
+    )
 }
 
 function setLocationDetected(value: boolean): void { // Did this for shits and giggles tbh
@@ -134,6 +143,7 @@ export default function MapDisplay() {
                 .bindPopup("<div class='font-montserrat font-bold text-xl text-center'>You are here</div>")
                 .addTo(map);
 
+
             const onLocationFound = ((e: any): void => {
                 if (!locationDetected) {
                     map.setView(e.latlng, map.getZoom());
@@ -141,10 +151,14 @@ export default function MapDisplay() {
                 }
                 locationMarker.setLatLng(e.latlng);
             });
+
+
             const onLocationError = ((e: any): void => {
                 map.setView([55.751934, 37.618346], 16);
                 locationMarker.remove();
             })
+
+
             const onContextMenu = ((coords: any) => {
 
                 const isLoggedIn = status === 'authenticated';
@@ -167,6 +181,10 @@ export default function MapDisplay() {
                         map.removeLayer(marker);
                     }, 300);
                 })
+
+                let point = map.latLngToLayerPoint(coords.latlng);
+                point.y -= map.getSize().y / 10;
+                map.panTo(map.layerPointToLatLng(point));
 
                 if (!isLoggedIn) return;
 
@@ -201,12 +219,13 @@ export default function MapDisplay() {
                     });
                     type ExtendedSession = Session & {
                         user: {
+                            id: number;
                             role: string;
                         }
                     };
                     const extendedSession = session as unknown as ExtendedSession;
 
-                    jsonData['is_confirmed'] = extendedSession?.user?.role === 'admin';  // TODO: change when implementing access levels
+                    jsonData['is_confirmed'] = extendedSession?.user?.role === 'admin';
                     jsonData['userId'] = extendedSession?.user?.id;
                     const res = await fetch('/api/add-point', {
                         method: 'POST',
@@ -219,7 +238,7 @@ export default function MapDisplay() {
                         marker.bindPopup(`
                         <div class='font-montserrat min-w-[300px] text-green-600 text-xl text-center'>Point has been added</div>
                     `).on('popupclose', () => {
-                            placeNewPoint(map, coords.latlng);
+                            placeNewPoint(map, coords.latlng, session, status);
                         });
                     } else {
                         marker.bindPopup(`
@@ -232,19 +251,17 @@ export default function MapDisplay() {
                     return false;
                 });
 
-                let point = map.latLngToLayerPoint(coords.latlng);
-                point.y -= map.getSize().y / 10;
-                map.panTo(map.layerPointToLatLng(point));
+
                 //map.setView(map.layerPointToLatLng(point), 17);
                 // It's not up to Pollo's standards ;(
                 // But shit guess I have to be ok with it
             })
 
-            map.locate({ maxZoom: 16, watch: true, timeout: 30000, /*enableHighAccuracy: true*/ }) // Prospective "enableHighAccuracy: true" use
+            map.locate({ maxZoom: 16, watch: true, timeout: 30000, enableHighAccuracy: true }) // Prospective "enableHighAccuracy: true" use
             map.on('locationfound', onLocationFound);
             map.on('locationerror', onLocationError);
             map.on('contextmenu', onContextMenu);
-            populateMap(map);
+            populateMap(map, session, status);
         }
         return () => {
             if (mapProt.current) {

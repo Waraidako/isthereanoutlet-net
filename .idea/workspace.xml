@@ -5,53 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c8e7134-a494-40e8-9cbe-ad15a4c7d2b8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/isthereanoutlet-net.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/isthereanoutlet-net.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api/delete-point/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/add-point/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/add-point/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/auth/[...nextauth]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/auth/[...nextauth]/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api/get-point/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/get-point/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/points/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/points/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api/register/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/api/register/route.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth/register/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth/register/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bug/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/bug/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/BurgerMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/BurgerMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/HamburgerSVG.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/HamburgerSVG.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/components/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/components/Providers.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/components/Providers.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/credits/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/credits/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/client.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/client.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/default.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/default.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/edge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/index-browser.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/index-browser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/index.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/libquery_engine-debian-openssl-1.1.x.so.node" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/libquery_engine-debian-openssl-1.1.x.so.node" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/libquery_engine-debian-openssl-3.0.x.so.node" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/runtime/edge-esm.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/runtime/edge-esm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/runtime/edge.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/runtime/edge.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/runtime/index-browser.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/runtime/index-browser.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/runtime/index-browser.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/runtime/index-browser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/runtime/library.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/runtime/library.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/runtime/library.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/runtime/library.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/runtime/react-native.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/runtime/react-native.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/wasm.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/wasm.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/prisma/wasm.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/prisma/wasm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/lib/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/app/lib/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/utils/mapHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/mapHandler.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/next-auth.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next-auth.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,6 +104,9 @@
       <updated>1778507874966</updated>
       <workItem from="1778507876831" duration="39279000" />
       <workItem from="1779311392897" duration="2836000" />
+      <workItem from="1779490184962" duration="70000" />
+      <workItem from="1780256940311" duration="7560000" />
+      <workItem from="1780271339275" duration="17140000" />
     </task>
     <servers />
   </component>

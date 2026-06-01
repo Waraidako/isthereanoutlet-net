@@ -24,7 +24,7 @@ export async function POST(req: Request): Promise<Response> {
             is_confirmed: pointData.is_confirmed ? pointData.is_confirmed : false,
             is_deleted: false,
             last_edited: new Date(),
-            userId: pointData.userId ? pointData.userId : 1,
+            userId: pointData.userId ? pointData.userId : 3,
         }
     })
     return Response.json({status: 200, statusText: 'OK', data: res});

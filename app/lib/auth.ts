@@ -14,6 +14,7 @@ const prisma = new PrismaClient({ adapter });
 type ExtendedSession = Session & {
     user: {
         role: string;
+        id: number;
     }
 };
 
@@ -51,15 +52,28 @@ export const authOptions: NextAuthOptions = {
             }
         })
     ],
+
+    secret: process.env.NEXTAUTH_SECRET,
+
     callbacks: {
         async jwt({ token, user }) {
-            if (user && 'role' in user) token.role = user.role as string;
+            if (user) {
+                if ('id' in user) {
+                    token.id = Number(user.id);
+                }
+                if ('role' in user) {
+                    token.role = user.role as string;
+                }
+            }
             return token;
         },
         async session({ session, token }) {
-            const extendedSession  = session as unknown as ExtendedSession;
-            if (session.user) extendedSession.user.role = token.role;
-            return extendedSession;
+            const extendedSession = session as unknown as ExtendedSession;
+            if (extendedSession.user) {
+                extendedSession.user.role = token.role;
+                extendedSession.user.id = token.id;
+            }
+            return session;
         }
     }
 }
