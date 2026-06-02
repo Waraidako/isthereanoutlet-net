@@ -7,7 +7,7 @@ TODO - Add/Remove/Edit points:
        - Adding triggered by tapping on the map / on a point
        - Name, description
        - [optional] Photos
-TODO - Location privilege request
+DONE - Location privilege request
 TODO - Auth + Profile customization
 DONE - 3 access levels - Admin > Mod > User
 TODO - Comments on points
@@ -38,13 +38,13 @@ DB structure:
         - profile
         - point
 
-    Table 3 - Internet Speeds #1:
+    Table 4 - Internet Speeds #1:
         - point id                [id]
         - internet provider       [from user]
         - avg speed               [calculated from table 3]
         - last measured           [from table 3]
 
-    Table 4 - Internet Speeds #2:
+    Table 5 - Internet Speeds #2:
         - measurement id          [id]
         - point id                [id]
         - internet provider       [from user]

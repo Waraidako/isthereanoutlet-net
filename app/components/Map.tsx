@@ -7,6 +7,7 @@ import "../../public/images/icons/no-outlets-confirmed.png";
 import '../utils/Leaflet.DoubleTapDrag';
 import '../utils/Leaflet.DoubleTapDragZoom';
 import { placeMarker } from "@/app/utils/mapHandler";
+// @ts-ignore
 import { Session, useSession } from 'next-auth/react';
 
 const iconSize: PointExpression = [48, 48];
