@@ -3,7 +3,7 @@
 import { slide as Menu } from 'react-burger-menu';
 import React from "react";
 import { HamburgerSVG } from './HamburgerSVG';
-import { signIn, useSession } from 'next-auth/react';
+import {signIn, signOut, useSession} from 'next-auth/react';
 
 const styles = {
     bmBurgerButton: {
@@ -61,6 +61,8 @@ export const LoginButton = () => {
 }
 
 export default function BurgerMenu() {
+    const { data: session, status }  = useSession();
+
     return (
         <Menu styles = { styles } className="flex-col h-full font-montserrat" customBurgerIcon={ <HamburgerSVG /> }>
             <div className="flex h-full flex-col ">
@@ -69,7 +71,11 @@ export default function BurgerMenu() {
                 <div className="mb-4 w-full"><a href="/credits">Credits</a></div>
                 {/*<div className="mb-4 w-full"><a href="/piss">Color Theme</a></div>*/}
                 <LoginButton />
-
+                {
+                    status === 'authenticated'
+                    ? <div className={'absolute bottom-12'}><button onClick={() => signOut()}>Log out</button></div>
+                    : ''
+                }
             </div>
         </Menu>
     )

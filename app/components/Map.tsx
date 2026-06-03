@@ -17,7 +17,7 @@ const popupAnchor: PointExpression = [0, -45];
 let locationDetected: boolean = false;
 
 
-function buildIcon(path: string,
+export function buildIcon(path: string,
                    customSize: PointExpression = iconSize,
                    customIconAnchor: PointExpression = iconAnchor,
                    customPopupAnchor: PointExpression = popupAnchor,
@@ -77,8 +77,17 @@ async function populateMap(leafletMap: Map, session: any, status: string) {
     const req = await fetch("api/points");
     const json = await req.json();
     localStorage.setItem('points', JSON.stringify(json.points));
-    json.points.map((point: any) => {
+    json.points.map(async (point: any) => {
         const pointIconName: string = point.type + (point.is_confirmed ? '-' : '-not-') + 'confirmed.png';
+
+        // const userRequest = await fetch(`/api/get-user?id=${point.userId}`, {
+        //     method: 'GET',
+        // })
+        // const userRequestJson = await userRequest.json();
+        // const userNickname = userRequest.status === 200 ? userRequestJson.user.nickname : undefined;
+        const userNickname = undefined;
+
+
         placeMarker(leafletMap, JSON.parse(point.coordinates), buildIcon(pointIconName), JSON.stringify({
             id: point.id,
             userId: point.userId,
@@ -88,7 +97,8 @@ async function populateMap(leafletMap: Map, session: any, status: string) {
             description: point.description
         }),
             session,
-            status
+            status,
+            userNickname,
         )
     })
 }
@@ -99,16 +109,21 @@ async function placeNewPoint(map: Map, coords: L.LatLng, session: any, status: s
         method: 'GET',
     });
     const reqJSON = await req.json();
+    console.log(reqJSON);
     const newPoint = reqJSON.point;
     const pointIconName: string = newPoint.type + (newPoint.is_confirmed ? '-' : '-not-') + 'confirmed.png';
-    placeMarker(map, JSON.parse(newPoint.coordinates), buildIcon(pointIconName), JSON.stringify({
-        name: newPoint.name,
-        is_confirmed: newPoint.is_confirmed,
-        photo: newPoint.photo,
-        description: newPoint.description
-    }),
+
+    // const userRequest = await fetch(`/api/get-user?id=${reqJSON.userId}`, {
+    //     method: 'GET',
+    // })
+    // const userRequestJson = await userRequest.json();
+    // const userNickname = userRequest.status === 200 ? userRequestJson.user.nickname : undefined;
+    const userNickname = undefined;
+
+    placeMarker(map, JSON.parse(newPoint.coordinates), buildIcon(pointIconName), JSON.stringify(newPoint),
         session,
-        status
+        status,
+        userNickname,
     )
 }
 

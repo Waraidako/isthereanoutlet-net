@@ -11,10 +11,9 @@ const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-export async function POST(
+export async function PUT(
     req: Request,
 ): Promise<Response> {
-
     const { searchParams } = new URL(req.url);
     const pointId = searchParams.get('id');
 

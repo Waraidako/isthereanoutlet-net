@@ -14,7 +14,6 @@ const prisma = new PrismaClient({ adapter });
 export async function DELETE(
     req: Request,
 ): Promise<Response> {
-
     const { searchParams } = new URL(req.url);
     const pointId = searchParams.get('id');
 
